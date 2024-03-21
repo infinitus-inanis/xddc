@@ -1,6 +1,6 @@
 # ii-ddc
 
-Python script to control brightness and contrast.
+python script to control brightness and contrast
 
 # requirements
 
@@ -17,7 +17,7 @@ sudo apt-get install ddcutil
 ```
 
 ```
-# install ddcci driver for charater device support
+# install ddcci driver for character device support
 sudo apt-get install dkms
 
 git clone git@gitlab.com:ddcci-driver-linux/ddcci-driver-linux.git
