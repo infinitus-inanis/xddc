@@ -2,7 +2,6 @@ import sys
 import os
 import io
 import argparse
-import time
 
 def __to_int(string):
   return int(string, 0)
