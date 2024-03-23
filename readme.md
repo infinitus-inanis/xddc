@@ -37,7 +37,7 @@ Everything described below can be achived by running `sudo ./ii-ddc-init` and `s
     cd ddcci-driver-linux
     sudo make -f Makefile.dkms install
     ```
-3. Install [`ddcutil`](). For forced creation of ddcci character devices via systemd service. Because ddcci driver can fail to do so in some cases.
+3. Install [`ddcutil`](https://github.com/rockowitz/ddcutil). For forced creation of ddcci character devices via systemd service. Because ddcci driver can fail to do so in some cases.
 
     ```
     sudo apt-get install ddcutil
