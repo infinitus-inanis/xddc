@@ -9,7 +9,7 @@ def __vcp_show(dsp: io.FileIO, idx: int, dsc: str):
   buf = bytes([0x01, idx])
   dsp.write(buf)
   buf = dsp.read(8)
-  print('{}: {} / {}'.format(dsc, buf[7], buf[5]))
+  print(f'{dsc}: {buf[7]} / {buf[5]}')
   return
 
 def __vcp_set(dsp: io.FileIO, idx: int, val: int, dsc: str):
@@ -17,7 +17,7 @@ def __vcp_set(dsp: io.FileIO, idx: int, val: int, dsc: str):
   dsp.write(buf)
   buf = dsp.read(8)
   if val != buf[7] and val <= buf[5]:
-    print('{}: ({} -> {}) / {}'.format(dsc, buf[7], val, buf[5]))
+    print(f'{dsc}: ({buf[7]} -> {val}) / {buf[5]}')
     dsp.write(bytes([0x03, idx, 0x00, val]))
 
 def __terminal_props():
@@ -53,12 +53,12 @@ parser.add_argument(
 )
 parser.add_argument(
   '-b', '--brightness',
-  dest='bval', type=__to_int, default=argparse.SUPPRESS,
+  dest='setb', type=__to_int, default=argparse.SUPPRESS,
   help="set current brightness value"
 )
 parser.add_argument(
   '-c', '--contrast',
-  dest='cval', type=__to_int, default=argparse.SUPPRESS,
+  dest='setc', type=__to_int, default=argparse.SUPPRESS,
   help="set current contrast value"
 )
 a = parser.parse_args()
@@ -76,8 +76,8 @@ for subdir, dirs, files in os.walk('/dev/bus/ddcci'):
         __vcp_show(f, 0x12, f'[{path}] contrast')
       else:
       # brightness
-        if hasattr(a, 'bval'):
-          __vcp_set(f, 0x10, a.bval, f'[{path}] brightness')
+        if hasattr(a, 'setb'):
+          __vcp_set(f, 0x10, a.setb, f'[{path}] brightness')
       # contrast
-        if hasattr(a, 'cval'):
-          __vcp_set(f, 0x12, a.cval, f'[{path}] contrast')
+        if hasattr(a, 'setc'):
+          __vcp_set(f, 0x12, a.setc, f'[{path}] contrast')
