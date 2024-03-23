@@ -1,0 +1,3 @@
+#!/bin/bash
+chown -R root:i2c /dev/bus/ddcci
+chmod 660 /dev/bus/ddcci/*/display

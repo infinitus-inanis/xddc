@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# wrapper for python script
+
+own_d=$(dirname $(realpath $0))
+
+python3 $own_d/ii-ddc.py "$@"

@@ -1,0 +1,110 @@
+#!/bin/bash
+
+own_d=$(realpath $(dirname $0))
+
+function _kmod_exists() {
+  local kmod=$1
+  modprobe -nq $kmod && {
+    return 0
+  } || {
+    return 1
+  }
+}
+
+function _kmod_loaded() {
+  local kmod=$1
+  modprobe -nq $kmod && {
+    modprobe -nq --first-time $kmod && {
+      return 1
+    } || {
+      return 0 
+    }
+  } || {
+    return 1
+  }
+}
+
+_i2c_dev="i2c-dev"
+echo "=> checking: $_i2c_dev"
+if !(_kmod_exists $_i2c_dev); then
+  echo "=> => not exist. unable to proceed..."
+  exit 1
+fi
+echo "=> => exists"
+
+if !(_kmod_loaded $_i2c_dev); then
+  echo "=> => not loaded. loading..."
+  if !(modprobe -q $_i2c_dev); then
+    echo "=> => unable to load"
+    exit 1
+  fi
+fi
+echo "=> => loaded"
+
+_ddcci="ddcci"
+echo "=> checking: $_ddcci"
+if !(_kmod_exists $_ddcci); then
+  echo "=> => not exist. trying to install..."
+  apt-get update
+  apt-get install -y git build-essential dkms
+  pushd /tmp
+    git clone https://gitlab.com/ddcci-driver-linux/ddcci-driver-linux.git
+    pushd ddcci-driver-linux
+      git checkout tags/v0.4.4
+      make -f Makefile.dkms install
+    popd
+    rm -r ddcci-driver-linux
+  popd
+  if !(_kmod_exists $_ddcci); then
+    echo "=> => => unable to install"
+    exit 1
+  fi
+fi
+echo "=> => exists"
+
+if !(_kmod_loaded $_ddcci); then
+  echo "=> => not loaded. loading..."
+  if !(modprobe -q $_ddcci); then
+    echo "=> => unable to load"
+    exit 1
+  fi
+fi
+echo "=> => loaded"
+
+_ddcutil="ddcutil"
+echo "=> checking: $_ddcutil"
+if !(command -v $_ddcutil &> /dev/null); then
+  echo "=> => command not exists. trying to install..."
+  apt-get update
+  apt-get install $_ddcutil
+  if !(command -v $_ddcutil &> /dev/null); then
+    echo "=> => unable to install $_ddcutil"
+    exit 1
+  fi
+fi
+echo "=> => exists"
+
+_link=/usr/bin/ii-ddc
+echo "=> checking: $_link"
+if [ ! -f $_link ]; then
+  echo "=> => creating..."
+  ln -s $own_d/ii-ddc $_link
+fi
+echo "=> => exists"
+
+_fs_overlay=$own_d/ii-ddc-fs-overlay
+echo "=> installing fs-overlay..."
+rsync -a $_fs_overlay/ /
+echo "=> => done"
+
+echo "=> setting user privileges..."
+usermod -aG i2c $USER
+echo "=> => done"
+
+echo "=> reboot required..."
+read -p "=> => reboot now? [y|n] " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+  echo "=> => rebooting "
+  reboot
+fi
