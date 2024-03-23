@@ -97,10 +97,6 @@ echo "=> installing fs-overlay..."
 rsync -a $_fs_overlay/ /
 echo "=> => done"
 
-echo "=> setting user privileges..."
-usermod -aG i2c $USER
-echo "=> => done"
-
 echo "=> reboot required..."
 read -p "=> => reboot now? [y|n] " -n 1 -r
 echo

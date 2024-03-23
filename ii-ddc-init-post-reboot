@@ -1,3 +1,4 @@
 #!/bin/bash
+usermod -aG i2c $USER
 chown -R root:i2c /dev/bus/ddcci
 chmod 660 /dev/bus/ddcci/*/display
