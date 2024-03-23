@@ -43,7 +43,7 @@ Everything described below can be achived by running `sudo ./ii-ddc-init` and `s
     sudo apt-get install ddcutil
     ```
 
-4. Create kernel module configs. Can be copied from `./ii-ddc-fs-overlay/etc/modules-load.d/`.
+4. Create kernel module configs. Can be copied from [ddcci.conf](ii-ddc-fs-overlay/etc/modules-load.d/ddcci.conf).
 
 - `/etc/modules-load.d/ddcci.conf`:
     
@@ -58,7 +58,7 @@ Everything described below can be achived by running `sudo ./ii-ddc-init` and `s
     i2c-dev
     ```
 
-5. Create systemd template service. It's work based on [this method of instantiating devices](https://docs.kernel.org/i2c/instantiating-devices.html#method-4-instantiate-from-user-space). Can be copied from `./ii-ddc-fs-overlay/etc/systemd/system/`.
+5. Create systemd template service. It's work based on [this method of instantiating devices](https://docs.kernel.org/i2c/instantiating-devices.html#method-4-instantiate-from-user-space). Can be copied from [ddcci@.service](ii-ddc-fs-overlay/etc/systemd/system/ddcci@.service).
 
 - `/etc/systemd/system/ddcci@.service`
 
@@ -75,7 +75,7 @@ Everything described below can be achived by running `sudo ./ii-ddc-init` and `s
     Restart=no
     ```
 
-6. Create udev rules. For instantiation of systemd templates. Can be copied from `./ii-ddc-fs-overlay/etc/udev/rules.d/`.
+6. Create udev rules. For instantiation of systemd templates. Can be copied from [99-ddcci.rules](ii-ddc-fs-overlay/etc/udev/rules.d/99-ddcci.rules).
 
 - `/etc/udev/rules.d/99-ddcci.rules`
 
