@@ -40,11 +40,15 @@ Everything described below can be achived by running `sudo ./install`
     sudo apt-get install ddcutil
     ```
 
-4. Create kernel modules config [xddc.conf](xddc-fs-overlay/etc/modules-load.d/xddc.conf) at `/etc/modules-load.d/`.
+4. Install [kernel modules config](xddc-fs-overlay/etc/modules-load.d/xddc.conf) to `/etc/modules-load.d/`.
 
-5. Run configure script or add as systemd service and reboot [xddc-configure](), [xddc-configure.service](xddc-fs-overlay/usr/local/lib/systemd/system/xddc-configure.service)
+5. Install [configuration script](xddc-fs-overlay/usr/local/bin/xddc-configure) to `/usr/local/bin/xddc-configure` (path required by `xddc-configure.service` next step).
 
-6. Install [xddc.py](xddc-fs-overlay/usr/local/bin/xddc.py) and [xddc](xddc-fs-overlay/usr/local/bin/xddc) to one of `/bin` directories for convinience.
+6. Install [systemd service](xddc-fs-overlay/usr/local/lib/systemd/system/xddc-configure.service) to one of `/systemd/system/` directories.
+
+7. Install [xddc.py](xddc-fs-overlay/usr/local/bin/xddc.py) and [xddc](xddc-fs-overlay/usr/local/bin/xddc) to one of `/bin/` directories for convinience.
+
+8. Reboot.
 
 ## references
 
