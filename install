@@ -30,6 +30,7 @@ if !(_kmod_exists $_i2c_dev); then
   echo "=> => not exist. unable to proceed..."
   exit 1
 fi
+usermod -aG i2c $USER
 echo "=> => exists"
 
 if !(_kmod_loaded $_i2c_dev); then
@@ -84,15 +85,7 @@ if !(command -v $_ddcutil &> /dev/null); then
 fi
 echo "=> => exists"
 
-_link=/usr/bin/ii-ddc
-echo "=> checking: $_link"
-if [ ! -f $_link ]; then
-  echo "=> => creating..."
-  ln -s $own_d/ii-ddc $_link
-fi
-echo "=> => exists"
-
-_fs_overlay=$own_d/ii-ddc-fs-overlay
+_fs_overlay=$own_d/xddc-fs-overlay
 echo "=> installing fs-overlay..."
 rsync -a $_fs_overlay/ /
 echo "=> => done"
