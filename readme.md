@@ -47,6 +47,7 @@ Everything described below can be achived by running `sudo ./install`
 6. Install [xddc.py](xddc-fs-overlay/usr/local/bin/xddc.py) and [xddc](xddc-fs-overlay/usr/local/bin/xddc) to one of `/bin` directories for convinience.
 
 ## references
-https://glenwing.github.io/docs/VESA-DDCCI-1.1.pdf\
-https://boichat.ch/nicolas/ddcci/specs.html\
-https://toxblh.com/linux-upravliaiem-iarkostiu-monitora-s-poddierzhkoi-ddc-protokola/\
+
+[Article on which this was project based](https://toxblh.com/linux-upravliaiem-iarkostiu-monitora-s-poddierzhkoi-ddc-protokola/)\
+[VESA DDC/CI Standard](https://glenwing.github.io/docs/VESA-DDCCI-1.1.pdf)\
+[DDC/CI specifications](https://boichat.ch/nicolas/ddcci/specs.html)
