@@ -102,3 +102,7 @@ Everything described below can be achived by running `sudo ./ii-ddc-init` and `s
     ```
     ln -s `realpath ./ii-ddc` /usr/bin/ii-ddc
     ```
+
+## Info
+https://boichat.ch/nicolas/ddcci/specs.html
+https://glenwing.github.io/docs/VESA-DDCCI-1.1.pdf
