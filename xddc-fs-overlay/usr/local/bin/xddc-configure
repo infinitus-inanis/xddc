@@ -5,7 +5,7 @@ if ! (command -v ddcutil > /dev/null); then
   exit 1;
 fi
 
-for match in $(ddcutil detect -t | sed -rn 's/.*I2C bus:.*(\/dev\/(i2c-([0-9*]))).*/\1,\2,\3/p'); do
+for match in $(ddcutil detect -t | sed -rn 's/.*I2C bus:.*(\/dev\/(i2c-([0-9]*))).*/\1,\2,\3/p'); do
   IFS=','
   read -r dev tag idx <<< "$match"
   if [ -f "/sys/bus/i2c/devices/$tag/new_device" ]; then
