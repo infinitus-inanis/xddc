@@ -33,6 +33,7 @@ Everything described below can be achived by running `sudo ./install`
     git clone https://gitlab.com/ddcci-driver-linux/ddcci-driver-linux.git
     cd ddcci-driver-linux
     sudo make -f Makefile.dkms install
+    sudo modprobe ddcci
     ```
 3. Install [`ddcutil`](https://github.com/rockowitz/ddcutil). For smart creation of ddcci character devices. Because ddcci driver can fail to do so in some cases.
 
@@ -48,7 +49,16 @@ Everything described below can be achived by running `sudo ./install`
 
 7. Install [xddc.py](xddc-fs-overlay/usr/local/bin/xddc.py) and [xddc](xddc-fs-overlay/usr/local/bin/xddc) to one of `/bin/` directories for convinience.
 
-8. Reboot.
+8. Reload systemd daemon and enable `xddc-configure.service`
+
+    ```
+    sudo systemctl daemon-reload
+    sudo systemctl enable xddc-configure.service
+    ```
+
+9. Reboot.
+
+10. Enjoy :)
 
 ## references
 
