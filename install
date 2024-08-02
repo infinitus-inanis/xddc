@@ -39,6 +39,7 @@ if !(_kmod_loaded $_i2c_dev); then
     exit 1
   fi
 fi
+echo "=> => adding '$USER' to i2c group"
 usermod -aG i2c $USER
 echo "=> => loaded"
 
